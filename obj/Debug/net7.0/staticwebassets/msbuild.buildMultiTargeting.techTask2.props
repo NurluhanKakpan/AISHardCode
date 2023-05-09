@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\techTask2.props" />
+</Project>
