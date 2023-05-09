@@ -15,6 +15,8 @@ public class DataContext : DbContext
     public DbSet<Transport> Transports { get; set; }
     public DbSet<Inspector> Inspectors { get; set; }
     public DbSet<Srts> Srts { get; set; }
+    public DbSet<Message> Messages { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Owner>().HasMany(e => e.Applications).WithOne(e => e.Owner)
@@ -27,6 +29,8 @@ public class DataContext : DbContext
             .IsRequired();
         modelBuilder.Entity<Transport>().HasOne(e => e.Srts).WithOne(e => e.Transport)
             .HasForeignKey<Srts>(e => e.TransportId).IsRequired();
+        modelBuilder.Entity<Owner>().HasMany(e => e.Messages).WithOne(e => e.Owner).HasForeignKey(e => e.OwnerId)
+            .IsRequired();
 
 
     }

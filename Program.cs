@@ -28,6 +28,8 @@ builder.Services.AddScoped<ISrtsRepository, SrtsRepository>();
 builder.Services.AddScoped<IApplicationService, ApplicationService>();
 builder.Services.AddScoped<ISrtsService, SrtsService>();
 builder.Services.AddScoped<IInspectorService, InspectorService>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IMessageService, MessageService>();
 
 
 

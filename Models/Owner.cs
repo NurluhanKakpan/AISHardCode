@@ -14,5 +14,6 @@ public class Owner
     public IEnumerable<Application>? Applications { get; set; }
     public IEnumerable<Transport>? Transports { get; set; }
     public IEnumerable<Srts>? OwnerSrts { get; set; }
-    
+    public IEnumerable<Message>? Messages { get; set; }
+
 }

@@ -18,5 +18,7 @@ public class ProjectProfile : Profile
         CreateMap<InspectorCreateDto, Inspector>();
         CreateMap<Srts, SrtsDto>();
         CreateMap<SrtsCreateDto, Srts>();
+        CreateMap<Message, MessageDto>();
+        CreateMap<MessageCreateDto, Message>();
     }
 }

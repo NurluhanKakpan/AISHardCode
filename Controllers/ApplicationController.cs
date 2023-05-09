@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using techTask2.Data;
+using techTask2.Dto;
 using techTask2.Models;
 using techTask2.ServiceInterface;
 
@@ -10,10 +11,12 @@ namespace techTask2.Controllers;
 public partial class ApplicationController : Controller
 {
     private readonly IApplicationService _applicationService;
+    private readonly IMessageService _messageService;
 
-    public ApplicationController(IApplicationService applicationService)
+    public ApplicationController(IApplicationService applicationService,IMessageService messageService)
     {
         _applicationService = applicationService;
+        _messageService = messageService;
     }
 
     [HttpGet]
@@ -70,19 +73,24 @@ public partial class ApplicationController : Controller
         }
         if (!_applicationService.CreateApplicationAndTransport(ownerId, applicationDto))
         {
-            return StatusCode(402);
+            return StatusCode(500);
         }
         return Ok("Successfully");
     }
 
     [HttpPost("{inspectorId:int}/cancel")]
     [ProducesResponseType(204)]
-    public IActionResult CancelApplication(int inspectorId, [FromQuery] int applicationId)
+    public IActionResult CancelApplication(int inspectorId, [FromQuery] int applicationId ,[FromBody] MessageCreateDto? messageDto )
     {
+        if (!_messageService.CreateMessage(applicationId, messageDto!))
+        {
+            return StatusCode(500);
+        }
         if (_applicationService.CancelApplication(inspectorId,applicationId))
         {
             return Ok("Successfully canceled");
         }
+        
 
         return StatusCode(500);
     }
